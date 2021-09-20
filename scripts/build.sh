@@ -30,6 +30,8 @@ fi
 cd vendor/kubernetes-sigs/image-builder/images/capi
 export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
 
+echo "ioewbgiewogbeiowgbioewgbioebwiog" > text.txt
+
 # Update the Packer configuration for the required Kubernetes version
 # The full Kubernetes version will be given as an environment variable
 cat packer/config/kubernetes.json | \
