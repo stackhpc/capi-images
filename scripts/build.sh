@@ -5,7 +5,7 @@
 ## before executing the actual build scripts
 #####
 
-set -ex
+set -exo pipefail
 
 sudo apt-get update -y
 sudo apt-get install -y \
@@ -21,7 +21,11 @@ sudo apt-get install -y \
 sudo usermod -a -G kvm $USER
 sudo chown root:kvm /dev/kvm
 
-SCRIPT_DIR="$(dirname "$0")"
-# Do this instead of executing the script directly as we may need a
-# new shell to pick up the new group
-exec sg kvm $SCRIPT_DIR/build-ubuntu.sh
+# Check if we need to respawn to pick up the new group
+if ! id -nG | grep kvm; then
+  exec sg kvm $0
+fi
+
+export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
+cd vendor/kubernetes-sigs/image-builder/images/capi
+PACKER_LOG=1 make build-qemu-ubuntu-2004
