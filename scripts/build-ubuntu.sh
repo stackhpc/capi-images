@@ -11,4 +11,4 @@ cd vendor/kubernetes-sigs/image-builder/images/capi
 
 export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
 
-make build-qemu-ubuntu-2004
+PACKER_LOG=1 make build-qemu-ubuntu-2004
