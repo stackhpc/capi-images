@@ -7,7 +7,8 @@
 
 set -ex
 
-export PATH="$HOME/.local/bin:$PATH"
-
 cd vendor/kubernetes-sigs/image-builder/images/capi
-make deps-qemu
+
+export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
+
+make build-qemu-ubuntu-2004
