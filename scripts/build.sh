@@ -5,8 +5,11 @@
 ## before executing the actual build scripts
 #####
 
+set -ex
+
 sudo apt-get update -y
 sudo apt-get install -y \
+  make \
   qemu-kvm \
   libvirt-daemon-system \
   libvirt-clients \
