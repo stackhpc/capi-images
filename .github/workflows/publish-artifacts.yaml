@@ -22,3 +22,8 @@ jobs:
         env:
           KUBERNETES_VN: ${{ steps.build-info.outputs.kubernetes-vn }}
         run: ./scripts/build.sh
+
+      - name: Upload release artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./vendor/kubernetes-sigs/image-builder/images/capi/output/ubuntu-20.04-kube-v${{ steps.build-info.outputs.kubernetes-vn }}/ubuntu-20.04-kube-v${{ steps.build-info.outputs.kubernetes-vn }}
