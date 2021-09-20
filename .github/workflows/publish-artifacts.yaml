@@ -18,5 +18,7 @@ jobs:
           KUBERNETES_VN="${TAG%-*}"
           echo "::set-output name=kubernetes-vn::$KUBERNETES_VN"
 
-      - run: |
-          echo ${{ steps.build-info.outputs.kubernetes-vn }}
+      - name: Build QCOW2 image
+        env:
+          KUBERNETES_VN: ${{ steps.build-info.outputs.kubernetes-vn }}
+        run: ./scripts/build.sh
