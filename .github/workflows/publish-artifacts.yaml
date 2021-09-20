@@ -6,7 +6,7 @@ on:
 jobs:
   build_ubuntu_qcow2:
     name: Build Ubuntu QCOW2 image
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
