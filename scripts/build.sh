@@ -30,15 +30,13 @@ fi
 cd vendor/kubernetes-sigs/image-builder/images/capi
 export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
 
-echo "ioewbgiewogbeiowgbioewgbioebwiog" > text.txt
-
 # Update the Packer configuration for the required Kubernetes version
 # The full Kubernetes version will be given as an environment variable
 cat packer/config/kubernetes.json | \
   jq -r ".kubernetes_series = \"v${KUBERNETES_VN%.*}\"" | \
   jq -r ".kubernetes_semver = \"v$KUBERNETES_VN\"" | \
   jq -r ".kubernetes_rpm_version = \"$KUBERNETES_VN-0\"" | \
-  jq -r ".kubernetes_deb_version = \"$KUBERNETES_VN-00\""
+  jq -r ".kubernetes_deb_version = \"$KUBERNETES_VN-00\"" \
   > packer/config/kubernetes.json.new
 
 cat packer/config/kubernetes.json
