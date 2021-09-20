@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Extract build information from tag
         id: build-info
