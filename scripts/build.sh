@@ -20,6 +20,7 @@ sudo apt-get install -y \
   libosinfo-bin
 
 sudo usermod -a -G kvm $USER
+ls -l /dev
 sudo chown root:kvm /dev/kvm
 
 # Check if we need to respawn to pick up the new group
