@@ -24,4 +24,4 @@ sudo chown root:kvm /dev/kvm
 SCRIPT_DIR="$(dirname "$0")"
 # Do this instead of executing the script directly as we may need a
 # new shell to pick up the new group
-exec bash $SCRIPT_DIR/build-ubuntu.sh
+exec sg kvm $SCRIPT_DIR/build-ubuntu.sh
