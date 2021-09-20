@@ -19,4 +19,4 @@ jobs:
           echo "::set-output name=kubernetes-vn::$KUBERNETES_VN"
 
       - run: |
-          echo ${{ steps.build-info.kubernetes-vn }}
+          echo ${{ steps.build-info.outputs.kubernetes-vn }}
