@@ -39,5 +39,4 @@ cat packer/config/kubernetes.json | \
   jq -r ".kubernetes_deb_version = \"$KUBERNETES_VN-00\"" \
   > packer/config/kubernetes.json
 
-cat packer/config/kubernetes.json
-#make build-qemu-ubuntu-2004
+make build-qemu-ubuntu-2004
