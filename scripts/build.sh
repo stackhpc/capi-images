@@ -26,6 +26,6 @@ if ! id -nG | grep kvm; then
   exec sg kvm $0
 fi
 
-export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
 cd vendor/kubernetes-sigs/image-builder/images/capi
+export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
 PACKER_LOG=1 make build-qemu-ubuntu-2004
