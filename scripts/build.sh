@@ -10,6 +10,7 @@ set -ex
 sudo apt-get update -y
 sudo apt-get install -y \
   make \
+  unzip \
   qemu-kvm \
   libvirt-daemon-system \
   libvirt-clients \
