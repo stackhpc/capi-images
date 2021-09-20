@@ -1,0 +1,22 @@
+name: Publish artifacts
+# Run the tasks on every tag
+on:
+  push:
+    tags: ['*']
+jobs:
+  build_ubuntu_qcow2:
+    name: Build Ubuntu QCOW2 image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Extract build information from tag
+        id: build-info
+        run: |
+          TAG="${GITHUB_REF##*/}"
+          KUBERNETES_VN="${TAG%-*}"
+          echo "::set-output name=kubernetes-vn::$KUBERNETES_VN"
+
+      - run: |
+          echo ${{ steps.build-info.kubernetes-vn }}
