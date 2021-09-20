@@ -9,6 +9,7 @@ set -exo pipefail
 
 sudo apt-get update -y
 sudo apt-get install -y \
+  jq \
   make \
   unzip \
   qemu-kvm \
@@ -32,10 +33,17 @@ TAG="${GITHUB_REF##*/}"
 # The increment is to be used to trigger builds against a newer Ubuntu for the
 # same Kubernetes version
 KUBERNETES_VN="${TAG%%-*}"
-
-echo $TAG
-echo $KUBERNETES_VN
+KUBERNETES_SERIES="${KUBERNETES_VN%%.*}"
 
 cd vendor/kubernetes-sigs/image-builder/images/capi
 export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
-PACKER_LOG=1 make build-qemu-ubuntu-2004
+
+# Update the Packer configuration for the required Kubernetes version
+cat packer/config/kubernetes.json | \
+  jq ".kubernetes_series = 'v$KUBERNETES_SERIES'" | \
+  jq ".kubernetes_semver = 'v$KUBERNETES_VN'" | \
+  jq ".kubernetes_rpm_version = '$KUBERNETES_VN-0'" | \
+  jq ".kubernetes_deb_version = '$KUBERNETES_VN-00'"
+
+cat packer/config/kubernetes.json
+#make build-qemu-ubuntu-2004
