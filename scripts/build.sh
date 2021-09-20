@@ -22,9 +22,19 @@ sudo usermod -a -G kvm $USER
 sudo chown root:kvm /dev/kvm
 
 # Check if we need to respawn to pick up the new group
-if ! id -nG | grep kvm; then
+if ! id -nG | grep kvm > /dev/null; then
   exec sg kvm $0
 fi
+
+# Work out the Kubernetes version that we are deploying
+TAG="${GITHUB_REF##*/}"
+# The tag will be of the form {kubernetes version}-{inc}, e.g. 1.21.1-0, 1.22.3-1
+# The increment is to be used to trigger builds against a newer Ubuntu for the
+# same Kubernetes version
+KUBERNETES_VN="${TAG%%-*}"
+
+echo $TAG
+echo $KUBERNETES_VN
 
 cd vendor/kubernetes-sigs/image-builder/images/capi
 export PATH="$HOME/.local/bin:$PWD/.local/bin:$PATH"
